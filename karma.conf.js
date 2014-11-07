@@ -11,7 +11,8 @@ module.exports = function (config) {
             'node_modules/angular/angular.js',
             'node_modules/angular-mocks/angular-mocks.js',
             '*.js',
-            'test/**/*.js'
+            'test/**/*.js',
+            'test/**/*.html',
         ],
 
         // list of files / patterns to exclude
@@ -36,8 +37,9 @@ module.exports = function (config) {
         // - PhantomJS
         // - IE (only Windows)
         browsers: ['PhantomJS'],
-
-
+        preprocessors: {
+          'test/**/*.html': 'html2js'
+        },
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit
         singleRun: false,
