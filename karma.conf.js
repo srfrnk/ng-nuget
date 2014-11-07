@@ -4,15 +4,15 @@ module.exports = function (config) {
         basePath: '',
 
         // testing framework to use (jasmine/mocha/qunit/...)
-        frameworks: ['jasmine'],
+        frameworks: ['jasmine-jquery','jasmine'],
 
         // list of files / patterns to load in the browser
         files: [
             'node_modules/angular/angular.js',
             'node_modules/angular-mocks/angular-mocks.js',
             '*.js',
-            'test/**/*.js',
             'test/**/*.html',
+            'test/**/*.js',
         ],
 
         // list of files / patterns to exclude
@@ -38,15 +38,17 @@ module.exports = function (config) {
         // - IE (only Windows)
         browsers: ['PhantomJS'],
         preprocessors: {
-          'test/**/*.html': 'html2js'
+          'test/**/*.html': 'ng-html2js'
         },
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit
         singleRun: false,
         plugins: [
             'karma-jasmine',
+            'karma-jasmine-jquery',
             'karma-nested-reporter',
-            'karma-phantomjs-launcher'
+            'karma-phantomjs-launcher',
+            'karma-ng-html2js-preprocessor'
         ],
         reporters: ['nested'],
         nestedReporter: {
@@ -60,5 +62,23 @@ module.exports = function (config) {
                 browser: ''
             }
         }
+/*
+        ngHtml2JsPreprocessor: {
+            // strip this from the file path
+            stripPrefix: 'public/',
+            stripSufix: '.ext',
+            // prepend this to the
+            prependPrefix: 'served/',
+
+            // or define a custom transform function
+            //cacheIdFromPath: function(filepath) {
+            //    return cacheId;
+            //},
+
+            // setting this option will create only a single module that contains templates
+            // from all the files, so you can load them all with module('foo')
+            moduleName: 'foo'
+        }
+*/
     });
 };
