@@ -1,5 +1,7 @@
 (function (angular) {
     "use strict";
+    var nugets = [];
+    
     angular.module("ng.nuget", [])
         .directive('nuget', [function () {
             return {
