@@ -1,14 +1,13 @@
 (function (angular) {
     "use strict";
-    var nugets = [];
-    
     angular.module("ng.nuget", [])
         .directive('nuget', [function () {
             return {
                 restrict: "E",
                 transclude: true,
                 link: function (scope, elm, attrs, ctrl, transclude) {
-                    nugets.push({
+                    scope.nugets=scope.nugets||[];
+                    scope.nugets.push({
                         name: attrs.name,
                         data: (attrs.data||"").split(','),
                         transclude: transclude
@@ -19,7 +18,7 @@
             return {
                 restrict: "A",
                 link: function (scope, elm, attrs) {
-                    var nuget = nugets.filter(function (nugetI) {
+                    var nuget = (scope.nugets||[]).filter(function (nugetI) {
                         return nugetI.name == attrs.nuget;
                     })[0];
      
@@ -37,8 +36,16 @@
                         map[attr] = value;
                         return map;
                     }, {});
-     
-                    elm.replaceWith(nuget.transclude(newScope, function () {}));
+
+                    var transclude = angular.element(nuget.transclude(newScope, function () {}));
+                    transclude.find("nuget-transclude").each(function (idx,trn) {
+                        trn=angular.element(trn);
+                        var name=trn.attr("transclude-id");
+                        var replacement=elm.find("[transclude-id='"+name+"']").first();
+                        trn.replaceWith(replacement);
+                    });
+
+                    elm.replaceWith(transclude);
                 }
             };
         }]);    
