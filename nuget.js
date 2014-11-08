@@ -38,7 +38,7 @@
                     }, {});
 
                     var transclude = angular.element(nuget.transclude(newScope, function () {}));
-                    transclude.find("nuget-transclude").each(function (idx,trn) {
+                    angular.forEach(transclude.find("nuget-transclude"),function (trn) {
                         trn=angular.element(trn);
                         var name=trn.attr("transclude-id");
                         var replacement=elm.find("[transclude-id='"+name+"']").first();
