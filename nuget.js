@@ -41,7 +41,7 @@
                     angular.forEach(transclude.find("nuget-transclude"),function (trn) {
                         trn=angular.element(trn);
                         var name=trn.attr("transclude-id");
-                        var replacement=elm.find("[transclude-id='"+name+"']").first();
+                        var replacement=elm.find("[transclude-id='"+name+"']");
                         trn.replaceWith(replacement);
                     });
 
